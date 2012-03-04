@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>ZChat</title>
+</head>
+<body>
+ <p>
+ <textarea id="output" style="width: 50%; height: 50%;">
+ </textarea>
+ </p>
+ <p>
+ <form action="/msg/" method="POST" id="input">
+ <textarea id="user" style="width: 5%; height: 5%;">user</textarea>
+ <textarea id="text" style="width: 45%; height: 5%;">text</textarea>
+ <input type="submit" value="send" />
+ </p>
+ </form>
+ <a href="" id="test">Testing</a>
+ <a href="" id="test2">Testing 2</a>
+ <a href="" id="link">Link</a>
+ 
+ 
+ <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script>
+  $(document).ready(function(){
+  
+  var counter = 0;
+  var poll = function() {
+    $.getJSON('/poll/'+counter, function(response) {
+       counter = response.count;
+       var elem = $('#output');
+       elem.text(elem.text() + response.append);
+       poll();
+    });
+   }
+   
+  poll();
+  
+  $('#link').click(function(event) {
+    event.preventDefault();
+    
+    var data = JSON.stringify({text: $('#text').val(), user: $('#user').val()});
+    $.post('/msg/',data,function(d) {
+      $('#test').text(d);
+    });
+    
+   });
+  
+  });
+  </script>
+ 
+</body>
+</html>
