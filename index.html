@@ -17,6 +17,7 @@
  <a href="" id="test">Testing</a>
  <a href="" id="test2">Testing 2</a>
  <a href="" id="link">Link</a>
+ <p id="content">content here</p>
  
  
  <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
@@ -29,6 +30,8 @@
        counter = response.count;
        var elem = $('#output');
        elem.text(elem.text() + response.append);
+       var cont = $('#content');
+       cont.text(cont.text() + response.append);
        poll();
     });
    }
